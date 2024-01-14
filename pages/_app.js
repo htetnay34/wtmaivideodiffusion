@@ -5,7 +5,7 @@ import Script from 'next/script'
 export default function App({ Component, pageProps }) {
   return (
        <>
-       <meta title="Stable video diffusion" description="Stable video diffusion"></meta>
+       <meta title="Writtech AI Video" description="Writtech AI Video"></meta>
        <section className="relative">
           <div className="mx-auto max-w-7xl px-5 py-8 md:px-10 md:py-10 lg:py-10">
             <Header />
