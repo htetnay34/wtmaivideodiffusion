@@ -16,9 +16,9 @@ export default async function handler(req, res) {
       cond_aug: 0.02,
       decoding_t: 7,
       input_image: req.body.prompt,
-      video_length: "14_frames_with_svd",
+      video_length: "25_frames_with_svd_xt",
       sizing_strategy: "maintain_aspect_ratio",
-      motion_bucket_id: 127,
+      motion_bucket_id: 150,
       frames_per_second: 6,
     },
   });
