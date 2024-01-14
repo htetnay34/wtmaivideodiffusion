@@ -4,12 +4,49 @@ import Image from "next/image";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export default function Home() {
+// Function to translate Myanmar text to English using Google Translate API
+function translateToEnglish(text) {
+  return new Promise((resolve, reject) => {
+    const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Extract the translated text from the response
+        if (data && data[0] && data[0][0] && data[0][0][0]) {
+          resolve(data[0][0][0]);
+        } else {
+          reject('Translation to English failed');
+        }
+      })
+      .catch(error => {
+        console.error('Translation to English failed:', error);
+        reject(error);
+      });
+  });
+}
+
+
+
+const Home = () => {
   const [prediction, setPrediction] = useState(null);
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
+  const [myanmarPrompt, setMyanmarPrompt] = useState("");
+  const [translatedPrompt, setTranslatedPrompt] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleTranslate = async () => {
+    try {
+      const translatedText = await translateToEnglish(myanmarPrompt);
+      setTranslatedPrompt(translatedText);
+    } catch (error) {
+      console.error('Translation error:', error);
+      setError('Translation to English failed');
+    }
+  };
+
+  
+   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("/api/predictions", {
       method: "POST",
@@ -17,11 +54,12 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: e.target.prompt.value,
+        prompt: translatedPrompt || myanmarPrompt,
       }),
     });
 
     let prediction = await response.json();
+
 
     if (response.status !== 201) {
       setError(prediction.detail);
@@ -120,7 +158,12 @@ export default function Home() {
           className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
           name="prompt"
           placeholder="Enter a prompt to display an image"
+          value={myanmarPrompt}
+          onChange={(e) => setMyanmarPrompt(e.target.value)}
         />
+        <button className="button" type="button" onClick={handleTranslate}>
+          Translate
+        </button>
         <button className="button" type="submit">
           Go!
         </button>
