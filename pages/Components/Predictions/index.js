@@ -202,18 +202,6 @@ export default function Home() {
         )}
       </form>
 
-  {/* Translate button */}
-      <button className="button" onClick={handleTranslate}>
-        Translate
-      </button>
-
-   {/* Display translated text if available */}
-      {translatedText && (
-        <div>
-          <p>Original Prompt: {prediction?.prompt}</p>
-          <p>Translated Text: {translatedText}</p>
-        </div>
-      )}
 
       {error && <div>{error}</div>}
 
