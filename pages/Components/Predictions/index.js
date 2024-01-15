@@ -40,15 +40,13 @@ function translateToEnglish(text) {
 }
 
 const handleInputChange = (e) => {
-    const inputText = e.target.value;
+    setInputText(e.target.value);
     // You can update state or perform any logic based on the input text
   };
 
   const shouldShowGoButton = () => {
-    const inputText = document.getElementsByName("prompt")[0].value;
     return !hasMyanmarCharacters(inputText);
   };
-
   
 
   const handleSubmit = async (e) => {
@@ -161,20 +159,20 @@ const handleInputChange = (e) => {
         <a href="https://stable-vidoe-diffusion.site/">SDXL</a>:
       </p>
 
-      <form className="w-full flex" onSubmit={handleSubmit}>
-  <input
-    type="text"
-    className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
-    name="prompt"
-    placeholder="Enter a prompt to display an image"
-    onChange={(e) => handleInputChange(e)}
-  />
-  {shouldShowGoButton() && (
-    <button className="button" type="submit">
-      Go!
-    </button>
-  )}
-</form>
+ <form className="w-full flex" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
+          name="prompt"
+          placeholder="Enter a prompt to display an image"
+          onChange={(e) => handleInputChange(e)}
+        />
+        {shouldShowGoButton() && (
+          <button className="button" type="submit">
+            Go!
+          </button>
+        )}
+      </form>
 
 
       {error && <div>{error}</div>}
