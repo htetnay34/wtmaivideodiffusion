@@ -8,6 +8,7 @@ export default function Home() {
   const [prediction, setPrediction] = useState(null);
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
+  const [inputText, setInputText] = useState("");
 
 
 // Function to check if the input text contains Myanmar characters
