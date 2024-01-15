@@ -39,7 +39,15 @@ function translateToEnglish(text) {
   });
 }
 
+const handleInputChange = (e) => {
+    const inputText = e.target.value;
+    // You can update state or perform any logic based on the input text
+  };
 
+  const shouldShowGoButton = () => {
+    const inputText = document.getElementsByName("prompt")[0].value;
+    return !hasMyanmarCharacters(inputText);
+  };
 
   
 
