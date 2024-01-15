@@ -9,6 +9,40 @@ export default function Home() {
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
 
+
+// Function to check if the input text contains Myanmar characters
+function hasMyanmarCharacters(text) {
+  // Myanmar Unicode Range: U+1000 to U+109F
+  const myanmarRegex = /[\u1000-\u109F]/;
+  return myanmarRegex.test(text);
+}
+
+// Function to translate Myanmar text to English using Google Translate API
+function translateToEnglish(text) {
+  return new Promise((resolve, reject) => {
+    const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Extract the translated text from the response
+        if (data && data[0] && data[0][0] && data[0][0][0]) {
+          resolve(data[0][0][0]);
+        } else {
+          reject('Translation to English failed');
+        }
+      })
+      .catch(error => {
+        console.error('Translation to English failed:', error);
+        reject(error);
+      });
+  });
+}
+
+
+
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("/api/predictions", {
@@ -46,6 +80,21 @@ export default function Home() {
       handleVideo(prediction)
     }
   };
+
+const handleInputChange = (e) => {
+  const inputText = e.target.value;
+  // Update state or perform any logic based on the input text
+};
+
+const shouldShowGoButton = () => {
+  // Add logic here to determine whether to show the "Go!" button
+  // For example, you can use the hasMyanmarCharacters function
+  const inputText = document.getElementsByName("prompt")[0].value;
+  return !hasMyanmarCharacters(inputText);
+};
+
+
+  
 
   const handleVideo = async (params) => {
     const response = await fetch("/api/video", {
@@ -115,16 +164,20 @@ export default function Home() {
       </p>
 
       <form className="w-full flex" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
-          name="prompt"
-          placeholder="Enter a prompt to display an image"
-        />
-        <button className="button" type="submit">
-          Go!
-        </button>
-      </form>
+  <input
+    type="text"
+    className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
+    name="prompt"
+    placeholder="Enter a prompt to display an image"
+    onChange={(e) => handleInputChange(e)}
+  />
+  {shouldShowGoButton() && (
+    <button className="button" type="submit">
+      Go!
+    </button>
+  )}
+</form>
+
 
       {error && <div>{error}</div>}
 
