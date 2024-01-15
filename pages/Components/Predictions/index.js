@@ -9,6 +9,8 @@ export default function Home() {
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [inputText, setInputText] = useState("");
+  const [translatedText, setTranslatedText] = useState("");
+  const [showGoButton, setShowGoButton] = useState(false);
 
 
 // Function to check if the input text contains Myanmar characters
@@ -18,32 +20,39 @@ function hasMyanmarCharacters(text) {
   return myanmarRegex.test(text);
 }
 
-// Function to translate Myanmar text to English using Google Translate API
-function translateToEnglish(text) {
-  return new Promise((resolve, reject) => {
-    const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+ // Function to translate Myanmar text to English using Google Translate API
+  async function translateToEnglishWithDelay(text, delay) {
+    await sleep(delay);
+    try {
+      const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      const translatedText = data && data[0] && data[0][0] && data[0][0][0];
+      if (translatedText) {
+        setTranslatedText(translatedText);
+        setShowGoButton(true);
+      } else {
+        console.error('Translation to English failed:', data);
+      }
+    } catch (error) {
+      console.error('Translation to English failed:', error);
+    }
+  }
 
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Extract the translated text from the response
-        if (data && data[0] && data[0][0] && data[0][0][0]) {
-          resolve(data[0][0][0]);
-        } else {
-          reject('Translation to English failed');
-        }
-      })
-      .catch(error => {
-        console.error('Translation to English failed:', error);
-        reject(error);
-      });
-  });
-}
+  useEffect(() => {
+    if (hasMyanmarCharacters(inputText)) {
+      // Initiate translation after a 2-second delay
+      translateToEnglishWithDelay(inputText, 2000);
+    }
+  }, [inputText]);
 
-const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     setInputText(e.target.value);
+    setTranslatedText("");
+    setShowGoButton(false);
     // You can update state or perform any logic based on the input text
   };
+
 
   const shouldShowGoButton = () => {
     return !hasMyanmarCharacters(inputText);
@@ -160,15 +169,16 @@ const handleInputChange = (e) => {
         <a href="https://stable-vidoe-diffusion.site/">SDXL</a>:
       </p>
 
- <form className="w-full flex" onSubmit={handleSubmit}>
+<form className="w-full flex" onSubmit={handleSubmit}>
         <input
           type="text"
           className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
           name="prompt"
           placeholder="Enter a prompt to display an image"
+          value={translatedText || inputText} // Display translated text if available
           onChange={(e) => handleInputChange(e)}
         />
-        {shouldShowGoButton() && (
+        {showGoButton && (
           <button className="button" type="submit">
             Go!
           </button>
