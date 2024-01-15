@@ -11,28 +11,28 @@ function hasMyanmarCharacters(text) {
   return myanmarRegex.test(text);
 }
 
-// Function to translate Myanmar text to English using Google Translate API
+// Function to translate Myanmar text to English using My Memory Translation API
 function translateToEnglish(text) {
-  return new Promise((resolve, reject) => {
-    const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+  const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+    text
+  )}&langpair=my|en`;
 
+  return new Promise((resolve, reject) => {
     fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Extract the translated text from the response
-        if (data && data[0] && data[0][0] && data[0][0][0]) {
-          resolve(data[0][0][0]);
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.responseData && data.responseData.translatedText) {
+          resolve(data.responseData.translatedText);
         } else {
           reject('Translation to English failed');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Translation to English failed:', error);
         reject(error);
       });
   });
 }
-
 
 
 
