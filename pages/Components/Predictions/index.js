@@ -185,7 +185,7 @@ export default function Home() {
 
       {error && <div>{error}</div>}
 
-      {(prediction || videoPrediction) && (
+       {(prediction || videoPrediction) && (
         <>
           <div className="flex">
             {prediction?.output && (
