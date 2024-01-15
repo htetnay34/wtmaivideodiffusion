@@ -12,6 +12,8 @@ export default function Home() {
   const [translatedText, setTranslatedText] = useState("");
   const [showGoButton, setShowGoButton] = useState(false);
 
+  const delayBeforeTranslate = 4000; // 4 seconds
+
 
 // Function to check if the input text contains Myanmar characters
 function hasMyanmarCharacters(text) {
@@ -20,41 +22,41 @@ function hasMyanmarCharacters(text) {
   return myanmarRegex.test(text);
 }
 
- async function translateToEnglishWithDelay(text, delay) {
-  return new Promise((resolve) => {
-    setTimeout(async () => {
-      try {
-        const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        const translatedText = data && data[0] && data[0][0] && data[0][0][0];
-        if (translatedText) {
-          setTranslatedText(translatedText);
-          setShowGoButton(true);
-        } else {
-          console.error('Translation to English failed:', data);
-        }
-      } catch (error) {
-        console.error('Translation to English failed:', error);
+async function translateToEnglish(text) {
+    try {
+      const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      const translatedText = data && data[0] && data[0][0] && data[0][0][0];
+      if (translatedText) {
+        setTranslatedText(translatedText);
+        setShowGoButton(true);
+      } else {
+        console.error('Translation to English failed:', data);
       }
-      resolve();
-    }, delay);
-  });
-}
-
-  useEffect(() => {
-    if (hasMyanmarCharacters(inputText)) {
-      // Initiate translation after a 2-second delay
-      translateToEnglishWithDelay(inputText, 3000);
+    } catch (error) {
+      console.error('Translation to English failed:', error);
     }
-  }, [inputText]);
+  }
 
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
-    setTranslatedText("");
-    setShowGoButton(false);
-    // You can update state or perform any logic based on the input text
-  };
+
+useEffect(() => {
+    let timeoutId;
+
+    function handleInputChange(e) {
+      setInputText(e.target.value);
+      setShowGoButton(false);
+
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (hasMyanmarCharacters(inputText)) {
+          translateToEnglish(inputText);
+        }
+      }, delayBeforeTranslate);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [inputText]);
 
 
   const shouldShowGoButton = () => {
