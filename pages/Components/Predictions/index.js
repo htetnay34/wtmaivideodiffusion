@@ -22,7 +22,9 @@ function hasMyanmarCharacters(text) {
   return myanmarRegex.test(text);
 }
 
-async function translateToEnglish(text) {
+// Function to translate Myanmar text to English using Google Translate API
+  async function translateToEnglishWithDelay(text, delay) {
+    await sleep(delay);
     try {
       const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
       const response = await fetch(apiUrl);
@@ -39,24 +41,19 @@ async function translateToEnglish(text) {
     }
   }
 
-
-useEffect(() => {
-    let timeoutId;
-
-    function handleInputChange(e) {
-      setInputText(e.target.value);
-      setShowGoButton(false);
-
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        if (hasMyanmarCharacters(inputText)) {
-          translateToEnglish(inputText);
-        }
-      }, delayBeforeTranslate);
+  useEffect(() => {
+    if (hasMyanmarCharacters(inputText)) {
+      // Initiate translation after a 2-second delay
+      translateToEnglishWithDelay(inputText, 2000);
     }
-
-    return () => clearTimeout(timeoutId);
   }, [inputText]);
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+    setTranslatedText("");
+    setShowGoButton(false);
+    // You can update state or perform any logic based on the input text
+  };
 
 
   const shouldShowGoButton = () => {
