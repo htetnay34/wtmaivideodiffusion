@@ -42,6 +42,7 @@ export default function Home() {
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [showGoButton, setShowGoButton] = useState(true);
+  const [translatedText, setTranslatedText] = useState(null); // Define translatedText here
 
   const handleSubmit = async (e) => {
     e.preventDefault();
