@@ -107,6 +107,22 @@ export default function Home() {
       }
   };
 
+// Function to handle manual translation
+  const handleTranslate = async () => {
+    if (hasMyanmarCharacters(prediction?.prompt)) {
+      try {
+        const translatedText = await translateToEnglish(prediction.prompt);
+        console.log('Translated Text:', translatedText);
+        setTranslatedText(translatedText);
+      } catch (error) {
+        console.error('Manual Translation Error:', error);
+      }
+    }
+  };
+
+
+  
+
   const handleVideo = async (params) => {
     const response = await fetch("/api/video", {
       method: "POST",
@@ -187,6 +203,19 @@ export default function Home() {
           </button>
         )}
       </form>
+
+  {/* Translate button */}
+      <button className="button" onClick={handleTranslate}>
+        Translate
+      </button>
+
+   {/* Display translated text if available */}
+      {translatedText && (
+        <div>
+          <p>Original Prompt: {prediction?.prompt}</p>
+          <p>Translated Text: {translatedText}</p>
+        </div>
+      )}
 
       {error && <div>{error}</div>}
 
