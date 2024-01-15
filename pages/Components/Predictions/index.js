@@ -20,24 +20,27 @@ function hasMyanmarCharacters(text) {
   return myanmarRegex.test(text);
 }
 
- // Function to translate Myanmar text to English using Google Translate API
-  async function translateToEnglishWithDelay(text, delay) {
-    await sleep(delay);
-    try {
-      const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      const translatedText = data && data[0] && data[0][0] && data[0][0][0];
-      if (translatedText) {
-        setTranslatedText(translatedText);
-        setShowGoButton(true);
-      } else {
-        console.error('Translation to English failed:', data);
+ async function translateToEnglishWithDelay(text, delay) {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      try {
+        const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const translatedText = data && data[0] && data[0][0] && data[0][0][0];
+        if (translatedText) {
+          setTranslatedText(translatedText);
+          setShowGoButton(true);
+        } else {
+          console.error('Translation to English failed:', data);
+        }
+      } catch (error) {
+        console.error('Translation to English failed:', error);
       }
-    } catch (error) {
-      console.error('Translation to English failed:', error);
-    }
-  }
+      resolve();
+    }, delay);
+  });
+}
 
   useEffect(() => {
     if (hasMyanmarCharacters(inputText)) {
