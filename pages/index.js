@@ -6,10 +6,9 @@ export default function Home() {
     <section className="relative">
       <div className="mx-auto w-full max-w-3xl">
         <div className="text-center">
-          <h4 className="text-3xl font-semibold md:text-5xl text-black">Stable Video Diffusion</h4>
+          <h4 className="text-3xl font-semibold md:text-5xl text-black">AI Video Generator</h4>
           <div className="mx-auto mb-8 mt-4 max-w-[528px] md:mb-12 lg:mb-16">
-            <p className="text-[#636262]">Revolutionizing Video Generation with AI
-              Use the free Stable Video Diffusion service at Stable-Video-Diffusion.site</p>
+            <p className="text-[#636262]">မြန်မာလို စာရေးပြီး video ထုတ်နိုင်မည့် AI Video နည်းပညာ</p>
           </div>
         </div>
       </div>
