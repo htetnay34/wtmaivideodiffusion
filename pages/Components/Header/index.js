@@ -26,7 +26,7 @@ export default function Header() {
           ])}
           onClick={() => setCurrentTab(0)}
         >
-          How to use
+          အသုံးပြုနည်း
         </Link>
         <Link
           href="/introduction"
