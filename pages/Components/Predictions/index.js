@@ -46,23 +46,27 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if the input text has Myanmar characters
-    if (hasMyanmarCharacters(e.target.prompt.value)) {
-      // Hide the Go button
-      setShowGoButton(false);
+// Check if the input text has Myanmar characters
+  if (hasMyanmarCharacters(e.target.prompt.value)) {
+    // Hide the Go button
+    setShowGoButton(false);
 
-      // Translate the text to English
-      try {
-        const translatedText = await translateToEnglish(e.target.prompt.value);
-        console.log('Translated Text:', translatedText);
-        // Handle the translated text as needed
-      } catch (error) {
-        // Handle translation error
-        console.error('Translation Error:', error);
-      }
+    // Translate the text to English
+    try {
+      const translatedText = await translateToEnglish(e.target.prompt.value);
+      console.log('Translated Text:', translatedText);
 
-      // Additional logic for Myanmar input, if needed
-    } else {
+      // Continue with your logic using the translated text
+      // For example, you might want to set the translated text to state
+      setTranslatedText(translatedText);
+
+    } catch (error) {
+      // Handle translation error
+      console.error('Translation Error:', error);
+    }
+
+    // Additional logic for Myanmar input, if needed
+  } else {
       // Continue with your existing form submission logic
 
     
