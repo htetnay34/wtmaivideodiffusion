@@ -4,68 +4,13 @@ import Image from "next/image";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// Function to check if the input text contains Myanmar characters
-function hasMyanmarCharacters(text) {
-  // Myanmar Unicode Range: U+1000 to U+109F
-  const myanmarRegex = /[\u1000-\u109F]/;
-  return myanmarRegex.test(text);
-}
-
-// Function to translate Myanmar text to English using Google Translate API
-function translateToEnglish(text) {
-  return new Promise((resolve, reject) => {
-    const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
-
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Extract the translated text from the response
-        if (data && data[0] && data[0][0] && data[0][0][0]) {
-          resolve(data[0][0][0]);
-        } else {
-          reject('Translation to English failed');
-        }
-      })
-      .catch(error => {
-        console.error('Translation to English failed:', error);
-        reject(error);
-      });
-  });
-}
-
-
-
-
 export default function Home() {
   const [prediction, setPrediction] = useState(null);
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
-   const [showGoButton, setShowGoButton] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-  // Check if the input text has Myanmar characters
-    if (hasMyanmarCharacters(e.target.prompt.value)) {
-      // Hide the Go button
-      setShowGoButton(false);
-
-      // Translate the text to English
-      try {
-        const translatedText = await translateToEnglish(e.target.prompt.value);
-        console.log('Translated Text:', translatedText);
-        // Handle the translated text as needed
-      } catch (error) {
-        // Handle translation error
-        console.error('Translation Error:', error);
-      }
-
-      // Additional logic for Myanmar input, if needed
-    } else {
-      // Continue with your existing form submission logic
-
-
-    
     const response = await fetch("/api/predictions", {
       method: "POST",
       headers: {
@@ -156,7 +101,7 @@ export default function Home() {
     }
   };
 
-return (
+  return (
     <div className="container mx-auto p-5">
       <Head>
         <title>Replicate + Next.js</title>
