@@ -12,7 +12,7 @@ export default function Header() {
           className="bg-contain bg-center bg-no-repeat px-4 text-white"
           style={{ background: "url('/brand.svg')" }}
         >
-         Writtech AI Myanmar - AI Video
+         AI Video
         </span>
       </h2>
       <nav className="flex-1 w-full text-right text-black">
@@ -36,7 +36,7 @@ export default function Header() {
           })}
           onClick={() => setCurrentTab(1)}
         >
-          Introduction
+          ဝယ်ယူမယ်
         </Link>
       </nav>
     </div>
