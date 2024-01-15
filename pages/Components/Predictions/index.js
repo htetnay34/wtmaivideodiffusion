@@ -11,19 +11,6 @@ function hasMyanmarCharacters(text) {
   return myanmarRegex.test(text);
 }
 
-User
-import { useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-// Function to check if the input text contains Myanmar characters
-function hasMyanmarCharacters(text) {
-  // Myanmar Unicode Range: U+1000 to U+109F
-  const myanmarRegex = /[\u1000-\u109F]/;
-  return myanmarRegex.test(text);
-}
 
 // Function to translate Myanmar text to English using Google Translate API
 function translateToEnglish(text) {
