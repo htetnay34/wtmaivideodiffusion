@@ -13,9 +13,7 @@ function hasMyanmarCharacters(text) {
 
 // Function to translate Myanmar text to English using My Memory Translation API
 function translateToEnglish(text) {
-  const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-    text
-  )}&langpair=my|en`;
+  const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=my|en`;
 
   return new Promise((resolve, reject) => {
     fetch(apiUrl)
@@ -33,8 +31,6 @@ function translateToEnglish(text) {
       });
   });
 }
-
-
 
 
 export default function Home() {
