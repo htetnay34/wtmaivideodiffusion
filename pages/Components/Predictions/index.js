@@ -42,7 +42,7 @@ function hasMyanmarCharacters(text) {
   useEffect(() => {
     if (hasMyanmarCharacters(inputText)) {
       // Initiate translation after a 2-second delay
-      translateToEnglishWithDelay(inputText, 2000);
+      translateToEnglishWithDelay(inputText, 3000);
     }
   }, [inputText]);
 
