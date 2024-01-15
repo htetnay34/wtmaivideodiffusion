@@ -4,6 +4,39 @@ import Image from "next/image";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Function to check if the input text contains Myanmar characters
+function hasMyanmarCharacters(text) {
+  // Myanmar Unicode Range: U+1000 to U+109F
+  const myanmarRegex = /[\u1000-\u109F]/;
+  return myanmarRegex.test(text);
+}
+
+// Function to translate Myanmar text to English using Google Translate API
+function translateToEnglish(text) {
+  return new Promise((resolve, reject) => {
+    const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Extract the translated text from the response
+        if (data && data[0] && data[0][0] && data[0][0][0]) {
+          resolve(data[0][0][0]);
+        } else {
+          reject('Translation to English failed');
+        }
+      })
+      .catch(error => {
+        console.error('Translation to English failed:', error);
+        reject(error);
+      });
+  });
+}
+
+
+
+
+
 export default function Home() {
   const [prediction, setPrediction] = useState(null);
   const [videoPrediction, setVideoPrediction] = useState(null);
