@@ -21,11 +21,11 @@ export default function Home() {
           <div className="mb-4 flex flex-col items-center">
             <h6 className="font-semibold text-2xl">How to use</h6>
           </div>
-          <p>To use Stable Video Diffusion for transforming your text into images and your images into videos, follow these simple steps:</p>
-          <p className='text-left'>  <span className="text-base font-semibold">Step 1: Input Your Text</span> - After entering the text, the corresponding picture will be generated. Finally transform into a video.</p>
-          <p>  <span className="text-base font-semibold">Step 2: Wait for the Video to Generate</span> - After generating the photo, the model will process it to generate a video. This process may take some time depending on the complexity and length of the video.</p>
-          <p>  <span className="text-base font-semibold">Step 3: Download Your Video</span> - Once the video is generated, you will be able to download it. Check the quality and, if necessary, you can make adjustments or regenerate the video.</p>
-          <p>  Note: Stable Video Diffusion is in a research preview phase and is mainly intended for educational or creative purposes. Please ensure that your usage adheres to the terms and guidelines provided by Stability AI.</p>
+          <p>စာသားကနေ video ထုတ်ပေးနိုင်သည့် Writtech AI Myanmar - AI Video နည်းပညာကိုအသုံးပြုရန် အောက်ပါအဆင့်အတိုင်းအသုံးပြုနိုင်ပါသည်:</p>
+          <p className='text-left'>  <span className="text-base font-semibold">အဆင့် (၁): ထုတ်ချင်သည့် အကြောင်းအရာကို မြန်မာလို ရိုက်ထည့်ပါ</span> - မြန်မာလိုရိုက်ထည့်ပြီးရင် ခဏစောင့်ပါ။ မြန်မာစာသားတွေကို English လိုပြောင်းပေးသွားပါလိမ့်မယ်။ English လိုပြောင်းသွားသည့်အခါ Go ဆိုသည့် ခလုပ်လေးကိုနိုပ်ပြီးခဏစောင့်ပါ။ ပုံထွက်လာပါလိမ့်မယ်။ </p>
+          <p>  <span className="text-base font-semibold">အဆင့် (၂): ပုံထွက်လာသည့်အခါ video ထွက်လာဖို့ ခဏစောင့်ပါ</span> - ပုံထွက်လာပြီးလျှင် video ထုတ်ပေးဖို့ အလုပ်လုပ်နေပါလိမ့်မယ်။ vidoe ထွက်လာဖို့အချိန်က စာသားအနည်းအများပေါ်မှုတည်ပြီး ကြာနိုင်ပါတယ်.</p>
+          <p>  <span className="text-base font-semibold">အဆင့် (၃): Video ကို download လုပ်နိုင်ပါပြီ</span> - Video ထွက်လာရင် download ခလုပ်လေးကနေ video ကို download လုပ်နိုင်ပါတယ်။ ထွက်လာသည့် ရလဒ်ကိုမကျေနပ်သေးပါက နောက်ထပ်စာပြန်ရေးပြီး ပြန်ထုတ်နိုင်ပါတယ်။</p>
+          <p>  Writtech AI Myanmar - AI Video နည်းပညာကို ပိုတိုးတက်လာအောင် update တွေနဲ့ လုပ်ဆောင်နေပါတယ်။ Writtech AI Myanmar website မှာ membership plan များဝယ်ယူထားပါက update တွေကို အသုံးပြုနိုင်ပါတယ်။ Writtech AI Myanmar membership plan များဝယ်ယူလိုပါက Infinity Tech page ကို ဆက်သွယ်နိုင်ပါတယ်</p>
         </div>
       </div>
     </section>
