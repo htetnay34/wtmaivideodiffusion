@@ -172,7 +172,7 @@ function hasMyanmarCharacters(text) {
 
       <p>
         Dream something with {' '}
-        <a href="https://stable-vidoe-diffusion.site/">SDXL</a>:
+        <a href="https://stable-vidoe-diffusion.site/">Writtech AI</a>:
       </p>
 
 <form className="w-full flex" onSubmit={handleSubmit}>
@@ -180,7 +180,7 @@ function hasMyanmarCharacters(text) {
           type="text"
           className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
           name="prompt"
-          placeholder="Enter a prompt to display an image"
+          placeholder="ထုတ်ချင်သည့် အကြောင်းအရာကို မြန်မာလိုရိုက်ထည့်ပါ"
           value={translatedText || inputText} // Display translated text if available
           onChange={(e) => handleInputChange(e)}
         />
