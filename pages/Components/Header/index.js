@@ -12,7 +12,7 @@ export default function Header() {
           className="bg-contain bg-center bg-no-repeat px-4 text-white"
           style={{ background: "url('/brand.svg')" }}
         >
-          Video
+         Writtech AI Myanmar - AI Video
         </span>
       </h2>
       <nav className="flex-1 w-full text-right text-black">
