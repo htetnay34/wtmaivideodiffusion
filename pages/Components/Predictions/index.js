@@ -12,7 +12,8 @@ export default function Home() {
   const [translatedText, setTranslatedText] = useState("");
   const [showGoButton, setShowGoButton] = useState(false);
 
-  const delayBeforeTranslate = 4000; // 4 seconds
+const delayBeforeTranslate = 2000; // 2 seconds
+  let typingTimer;
 
 
 // Function to check if the input text contains Myanmar characters
@@ -23,8 +24,7 @@ function hasMyanmarCharacters(text) {
 }
 
 // Function to translate Myanmar text to English using Google Translate API
-  async function translateToEnglishWithDelay(text, delay) {
-    await sleep(delay);
+ async function translateToEnglish(text) {
     try {
       const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=my&tl=en&dt=t&q=${encodeURIComponent(text)}`;
       const response = await fetch(apiUrl);
@@ -42,17 +42,21 @@ function hasMyanmarCharacters(text) {
   }
 
   useEffect(() => {
-    if (hasMyanmarCharacters(inputText)) {
-      // Initiate translation after a 2-second delay
-      translateToEnglishWithDelay(inputText, 2000);
-    }
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      if (hasMyanmarCharacters(inputText)) {
+        translateToEnglish(inputText);
+      }
+    }, delayBeforeTranslate);
+
+    // Clear the timer if the user starts typing again within the delay
+    return () => clearTimeout(typingTimer);
   }, [inputText]);
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
     setTranslatedText("");
     setShowGoButton(false);
-    // You can update state or perform any logic based on the input text
   };
 
 
