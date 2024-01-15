@@ -156,17 +156,17 @@ export default function Home() {
     }
   };
 
-  return (
+return (
     <div className="container mx-auto p-5">
       <Head>
         <title>Replicate + Next.js</title>
-       <meta title="Stable video diffusion" description="Writtech AI Video"></meta>
+       <meta title="Stable video diffusion" description="Stable video diffusion"></meta>
 
       </Head>
 
-     <p>
+      <p>
         Dream something with {' '}
-        <a href="https://ai.writtech.com/">Writtech</a>:
+        <a href="https://stable-vidoe-diffusion.site/">SDXL</a>:
       </p>
 
       <form className="w-full flex" onSubmit={handleSubmit}>
@@ -176,16 +176,14 @@ export default function Home() {
           name="prompt"
           placeholder="Enter a prompt to display an image"
         />
-        {showGoButton && (
-          <button className="button" type="submit">
-            Go!
-          </button>
-        )}
+        <button className="button" type="submit">
+          Go!
+        </button>
       </form>
 
       {error && <div>{error}</div>}
 
-       {(prediction || videoPrediction) && (
+      {(prediction || videoPrediction) && (
         <>
           <div className="flex">
             {prediction?.output && (
