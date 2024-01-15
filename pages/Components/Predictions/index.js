@@ -164,7 +164,7 @@ export default function Home() {
 
       </Head>
 
-      <p>
+     <p>
         Dream something with {' '}
         <a href="https://ai.writtech.com/">Writtech</a>:
       </p>
@@ -174,7 +174,7 @@ export default function Home() {
           type="text"
           className="flex-grow border-cyan-600 border-2 border-r-0 focus-visible:no-underline"
           name="prompt"
-         placeholder="Enter a prompt to display an image"
+          placeholder="Enter a prompt to display an image"
         />
         {showGoButton && (
           <button className="button" type="submit">
