@@ -41,9 +41,31 @@ export default function Home() {
   const [prediction, setPrediction] = useState(null);
   const [videoPrediction, setVideoPrediction] = useState(null);
   const [error, setError] = useState(null);
+  const [showGoButton, setShowGoButton] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the input text has Myanmar characters
+    if (hasMyanmarCharacters(e.target.prompt.value)) {
+      // Hide the Go button
+      setShowGoButton(false);
+
+      // Translate the text to English
+      try {
+        const translatedText = await translateToEnglish(e.target.prompt.value);
+        console.log('Translated Text:', translatedText);
+        // Handle the translated text as needed
+      } catch (error) {
+        // Handle translation error
+        console.error('Translation Error:', error);
+      }
+
+      // Additional logic for Myanmar input, if needed
+    } else {
+      // Continue with your existing form submission logic
+
+    
     const response = await fetch("/api/predictions", {
       method: "POST",
       headers: {
@@ -78,6 +100,7 @@ export default function Home() {
     if (prediction.status === 'succeeded') {
       handleVideo(prediction)
     }
+      }
   };
 
   const handleVideo = async (params) => {
@@ -132,19 +155,19 @@ export default function Home() {
     } catch (error) {
       console.error('Error downloading video:', error);
     }
+    
   };
 
   return (
     <div className="container mx-auto p-5">
       <Head>
         <title>Replicate + Next.js</title>
-       <meta title="Stable video diffusion" description="Stable video diffusion"></meta>
-
+        <meta title="Stable video diffusion" description="Writtech AI Video"></meta>
       </Head>
 
       <p>
         Dream something with {' '}
-        <a href="https://stable-vidoe-diffusion.site/">SDXL</a>:
+        <a href="https://ai.writtech.com/">Writtech</a>:
       </p>
 
       <form className="w-full flex" onSubmit={handleSubmit}>
@@ -154,9 +177,11 @@ export default function Home() {
           name="prompt"
           placeholder="Enter a prompt to display an image"
         />
-        <button className="button" type="submit">
-          Go!
-        </button>
+        {showGoButton && (
+          <button className="button" type="submit">
+            Go!
+          </button>
+        )}
       </form>
 
       {error && <div>{error}</div>}
