@@ -191,20 +191,7 @@ function hasMyanmarCharacters(text) {
         )}
       </form>
 
-   {prediction?.output && (
-        <div className="flex">
-          <div className="image-wrapper mt-5">
-            <Image
-              fill
-              src={prediction?.output[prediction?.output?.length - 1]}
-              alt="output"
-              sizes="100vw"
-              onContextMenu={(e) => e.preventDefault()} // Prevent right-click
-            />
-          </div>
-        </div>
-      )}
-
+  
 
       {error && <div>{error}</div>}
 
@@ -218,6 +205,7 @@ function hasMyanmarCharacters(text) {
                   src={prediction?.output[prediction?.output?.length - 1]}
                   alt="output"
                   sizes="100vw"
+                     onContextMenu={(e) => e.preventDefault()} // Prevent right-click
                 />
               </div>
             )}
