@@ -8,10 +8,10 @@ export default function Home() {
           <h1 className="text-2xl font-semibold text-center mb-6">Writtech AI Myanmar အတွက် Membership plan များ</h1>
 
           <h2 className="text-xl font-semibold my-2"> 1 Month Plan</h2>
-          <p className="my-2">စတင်သုံးကြည့်ချင်သူများအတွက် ၁ လ အသုံးပြုခွင့်ကို ၂၀၀၀၀ ကျပ်ဖြင့် ဝယ်ယူနိုင်ပါတယ်</p>
+          <p className="my-2">စတင်သုံးကြည့်ချင်သူများအတွက် ၁ လ အသုံးပြုခွင့်ကို ၁၅၀၀၀ ကျပ်ဖြင့် ဝယ်ယူနိုင်ပါတယ်</p>
 
           <h2 className="text-xl font-semibold my-2">1 Year Plan</h2>
-          <p className="my-2">တစ်နှစ်စာ အသုံးပြုခွင့်ကို ၈၀၀၀၀ ကျပ်ဖြင့် ဝယ်ယူနိုင်ပါတယ်</p>
+          <p className="my-2">တစ်နှစ်စာ အသုံးပြုခွင့်ကို ၇၀၀၀၀ ကျပ်ဖြင့် ဝယ်ယူနိုင်ပါတယ်</p>
 
           <h2 className="text-xl font-semibold my-2">Lifetime Plan</h2>
           <p className="my-2">တစ်သက်သာ အသုံးပြုခွင့်ကို ၅ သိန်းကျပ်ဖြင့် ဝယ်ယူနိုင်ပါတယ်</p>
