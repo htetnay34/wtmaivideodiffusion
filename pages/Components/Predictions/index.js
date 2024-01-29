@@ -63,6 +63,37 @@ function hasMyanmarCharacters(text) {
   const shouldShowGoButton = () => {
     return !hasMyanmarCharacters(inputText);
   };
+
+ const downloadImage = async () => {
+  try {
+    // Download Image
+    const imageResponse = await fetch(prediction?.output[prediction?.output?.length - 1]);
+    const imageBlob = await imageResponse.blob();
+
+    const imageDownloadLink = document.createElement('a');
+    imageDownloadLink.href = URL.createObjectURL(imageBlob);
+    imageDownloadLink.download = 'image.jpg';
+    
+    document.body.appendChild(imageDownloadLink);
+    imageDownloadLink.click();
+    document.body.removeChild(imageDownloadLink);
+
+    // Download Video
+    const videoResponse = await fetch(videoPrediction?.output);
+    const videoBlob = await videoResponse.blob();
+
+    const videoDownloadLink = document.createElement('a');
+    videoDownloadLink.href = URL.createObjectURL(videoBlob);
+    videoDownloadLink.download = 'video.mp4';
+
+    document.body.appendChild(videoDownloadLink);
+    videoDownloadLink.click();
+    document.body.removeChild(videoDownloadLink);
+  } catch (error) {
+    console.error('Error downloading assets:', error);
+  }
+};
+
   
 
   const handleSubmit = async (e) => {
@@ -143,27 +174,6 @@ function hasMyanmarCharacters(text) {
     }
   };
 
-const downloadImage = async () => {
-  // Replace 'image.jpg' with an appropriate name for your downloaded image
-  const imageUrl = prediction?.output[prediction?.output?.length - 1];
-
-  try {
-    const response = await fetch(imageUrl);
-    const imageBlob = await response.blob();
-
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(imageBlob);
-    downloadLink.download = 'image.jpg'; // You can change the filename here
-
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  } catch (error) {
-    console.error('Error downloading image:', error);
-  }
-};
-
-
 
 
   
@@ -232,9 +242,9 @@ const downloadImage = async () => {
       sizes="100vw"
 
     />
-    <button className="download" onClick={downloadImage}>
-      Download Image ↓
-    </button>
+   <button className="download" onClick={downloadImage}>
+  Download Image and Video ↓
+</button>
               </div>
             )}
             {videoPrediction?.output && (
