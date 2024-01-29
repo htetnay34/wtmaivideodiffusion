@@ -142,6 +142,31 @@ function hasMyanmarCharacters(text) {
       setVideoPrediction(res);
     }
   };
+
+const downloadImage = async () => {
+  // Replace 'image.jpg' with an appropriate name for your downloaded image
+  const imageUrl = prediction?.output[prediction?.output?.length - 1];
+
+  try {
+    const response = await fetch(imageUrl);
+    const imageBlob = await response.blob();
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(imageBlob);
+    downloadLink.download = 'image.jpg'; // You can change the filename here
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  } catch (error) {
+    console.error('Error downloading image:', error);
+  }
+};
+
+
+
+
+  
   const downloadVideo = async () => {
     // 替换成你的 MP4 视频 URL
     const videoUrl = videoPrediction.output;
@@ -165,7 +190,7 @@ function hasMyanmarCharacters(text) {
   return (
     <div className="container mx-auto p-5">
       <Head>
-        <title>Replicate + Next.js</title>
+        <title>Writtech AI Video</title>
        <meta title="Stable video diffusion" description="Stable video diffusion"></meta>
 
       </Head>
@@ -200,13 +225,16 @@ function hasMyanmarCharacters(text) {
           <div className="flex">
             {prediction?.output && (
               <div className="image-wrapper mt-5">
-                <Image
-                  fill
-                  src={prediction?.output[prediction?.output?.length - 1]}
-                  alt="output"
-                  sizes="100vw"
-                     onContextMenu={(e) => e.preventDefault()} // Prevent right-click
-                />
+             <Image
+      fill
+      src={prediction?.output[prediction?.output?.length - 1]}
+      alt="output"
+      sizes="100vw"
+      onContextMenu={(e) => e.preventDefault()} // Prevent right-click
+    />
+    <button className="download" onClick={downloadImage}>
+      Download Image ↓
+    </button>
               </div>
             )}
             {videoPrediction?.output && (
