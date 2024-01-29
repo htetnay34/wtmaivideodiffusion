@@ -230,7 +230,7 @@ const downloadImage = async () => {
       src={prediction?.output[prediction?.output?.length - 1]}
       alt="output"
       sizes="100vw"
-      onContextMenu={(e) => e.preventDefault()} // Prevent right-click
+
     />
     <button className="download" onClick={downloadImage}>
       Download Image ↓
