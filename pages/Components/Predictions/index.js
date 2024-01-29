@@ -230,6 +230,34 @@ function hasMyanmarCharacters(text) {
 
       {error && <div>{error}</div>}
 
+ {prediction?.output && (
+        <div className="image-wrapper mt-5">
+          <Image
+            fill
+            src={prediction?.output[prediction?.output?.length - 1]}
+            alt="output"
+            sizes="100vw"
+          />
+          <button className="download" onClick={downloadImage}>
+            Download Image ↓
+          </button>
+        </div>
+      )}
+
+      {videoPrediction?.output && (
+        <div className="image-wrapper mt-5 ml-1">
+          <video
+            src={videoPrediction?.output}
+            preload="auto" autoPlay controls loop className="w-[100%] h-[100%]"
+          />
+          <button className="download" onClick={downloadVideo}>
+            Download Video ↓
+          </button>
+        </div>
+      )}
+
+       
+
       {(prediction || videoPrediction) && (
         <>
           <div className="flex">
